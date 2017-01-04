@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -e
+
+# Get OCSP response from responder
+openssl ocsp \
+  -issuer {{ item.ocsp_stapling.issuer_cert }}\
+  -cert {{ item.ocsp_stapling.cert }} \
+  -host {{ item.ocsp_stapling.responder }} \
+  -noverify \
+  -respout {{ item.ssl.cert}}.ocsp \
+  > /dev/null
+
+# Notify HAProxy about updated OCSP response
+echo "set ssl ocsp-response $(base64 -w 10000 {{ item.ssl.cert}}.ocsp)" | \
+  socat stdio {{ haproxy_global.stats.socket.split() | first }} \
+  > /dev/null

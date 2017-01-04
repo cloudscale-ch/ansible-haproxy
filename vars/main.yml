@@ -71,6 +71,15 @@ empty: true
 #      cert: /etc/ssl/private/cert.pem
 #      ciphers: 'RC4-SHA:AES128-SHA:AES:!ADH:!aNULL:!DH:!EDH:!eNULL'
 #      ecdhe: secp384r1
+#    ocsp_stapling:
+#      issuer_cert: '/etc/ssl/certs/intermediate.pem'
+#      cert: '/etc/ssl/certs/cert.pem'
+#      responder: 'ocsp.myca.com:80'
+#      cron_minute: '0'
+#      cron_hour: '0'
+#      cron_day: '*'
+#      cron_month: '*'
+#      cron_weekday: '*'
 #    maxconn:
 #    monitor:
 #      uri:

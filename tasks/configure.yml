@@ -156,3 +156,34 @@
     dest: "{{ haproxy_config_file }}"
     backup: yes
   notify: restart haproxy
+
+## Configure OCSP Stapling
+- name: 'Install script to update OCSP stapling response'
+  template:
+    src: "ocsp-stapling-update"
+    dest: "/usr/local/sbin/ocsp-stapling-update-{{ item.name }}"
+    owner: root
+    group: root
+    mode: 0755
+  when: item.ocsp_stapling is defined
+  with_items: "{{ haproxy_frontends + haproxy_listen }}"
+
+- name: 'Install cronjob to update OCSP stapling response'
+  cron:
+    name: "Update OCSP stapling response"
+    minute: "{{ item.ocsp_stapling.cron_minute | d('0') }}"
+    hour: "{{ item.ocsp_stapling.cron_hour | d('0') }}"
+    day: "{{ item.ocsp_stapling_cron_day | d('*') }}"
+    month: "{{ item.ocsp_stapling.cron_month | d('*') }}"
+    weekday: "{{ item.ocsp_stapling.cron_weekday | d('*') }}"
+    job: "/usr/local/sbin/ocsp-stapling-update-{{ item.name }}"
+  when: item.ocsp_stapling is defined
+  with_items: "{{ haproxy_frontends + haproxy_listen }}"
+
+- name: 'Initialize OCSP stapling response'
+  command: "/usr/local/sbin/ocsp-stapling-update-{{ item.name }}"
+  args:
+    creates: "{{ item.ssl.cert}}.ocsp"
+  when: item.ocsp_stapling is defined
+  with_items: "{{ haproxy_frontends + haproxy_listen }}"
+  notify: restart haproxy
