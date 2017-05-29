@@ -5,3 +5,4 @@ _haproxy_config_file: "{{ _haproxy_config_dir }}/haproxy.cfg"
 _haproxy_package_name: haproxy
 _haproxy_extra_packages:
   - socat
+  - hatop
