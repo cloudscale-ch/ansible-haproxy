@@ -64,6 +64,16 @@ empty: true
 #    expect:
 #    send_state:
 #
+#haproxy_peers:
+#  - name: 'haproxy-cluster'
+#    peers:
+#      - name: haproxy1
+#        ip: 10.0.2.1
+#        port: 1024
+#      - name: haproxy2
+#        ip: 10.0.2.2
+#        port: 1024
+#
 #haproxy_frontends:
 #  - name:
 #    ip:
