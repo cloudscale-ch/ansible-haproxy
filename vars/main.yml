@@ -176,6 +176,7 @@ empty: true
 #    errorfile:
 #      - code:
 #        file:
+#    http_reuse: safe
 #
 #haproxy_listen:
 #  - name:
