@@ -187,3 +187,14 @@
   when: item.ocsp_stapling is defined
   with_items: "{{ haproxy_frontends + haproxy_listen }}"
   notify: restart haproxy
+
+## Install LUA scripts
+- name: "Install LUA scripts"
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ haproxy_config_dir }}/{{ item.name }}.lua"
+    owner: root
+    group: root
+    mode: 0644
+  with_items: "{{ haproxy_global.lua | default([]) }}"
+  notify: restart haproxy

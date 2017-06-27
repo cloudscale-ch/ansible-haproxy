@@ -29,6 +29,9 @@ empty: true
 #      default-dh-param: 2048
 #    zlib:
 #      memlevel: 9
+#  lua:
+#    - name: backend_selection
+#      src: templates/haproxy/backend_selction.lua.j2
 #
 #haproxy_defaults:
 #  mode:
