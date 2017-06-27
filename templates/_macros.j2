@@ -11,3 +11,7 @@
 
     {% endfor -%}
 {%- endmacro -%}
+
+{%- macro stick_table(tbl) -%}
+        stick-table type {{ tbl.type }} size {{ tbl.size }}{% if tbl.expire is defined %} expire {{ tbl.expire }}{% endif %}{% if tbl.nopurge is defined and tbl.nopurge %} nopurge{% endif %}{% if tbl.peers is defined %} peers {{ tbl.peers }}{% endif %}{% if tbl.store is defined %} store {{ tbl.store }}{% endif %}
+{%- endmacro -%}

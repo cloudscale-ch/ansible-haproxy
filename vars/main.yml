@@ -127,6 +127,12 @@ empty: true
 #      - "^Location:\ 127.0.0.1:8080 Location:\ www.mydomain.com"
 #    rspirep:
 #      - "^Location:\ 127.0.0.1:8080 Location:\ www.mydomain.com"
+#    stick_table:
+#      type: 'ip'
+#      size: 1000
+#      expire: '30s'
+#      peers: 'haproxy-cluster'
+#      store: 'http_req_rate(1s)'
 #
 #haproxy_backends:
 #  - name:
