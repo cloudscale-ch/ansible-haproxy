@@ -6,3 +6,4 @@ _haproxy_package_name: haproxy
 _haproxy_extra_packages:
   - socat
   - hatop
+_haproxy_configure_repository: False
