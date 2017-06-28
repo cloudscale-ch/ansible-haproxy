@@ -231,3 +231,17 @@
     mode: 0644
   with_items: "{{ haproxy_global.lua | default([]) }}"
   notify: restart haproxy
+
+## Install error files
+- name: "Install error files"
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.file }}"
+    owner: root
+    group: root
+    mode: 0644
+  when: item.src is defined
+  with_flattened:
+    - "{{ haproxy_defaults.errorfile | default([]) }}"
+    - "{{ haproxy_backends | selectattr('errorfile', 'defined') | map(attribute='errorfile') | list }}"
+  notify: restart haproxy
