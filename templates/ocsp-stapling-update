@@ -7,7 +7,7 @@ openssl ocsp \
   -issuer {{ item.ocsp_stapling.issuer_cert }}\
   -cert {{ item.ocsp_stapling.cert }} \
   -host {{ item.ocsp_stapling.responder }} \
-  -header Host {{ item.ocsp_stapling.responder | regex_replace(':[0-9]+$', '') }} \
+  -header Host={{ item.ocsp_stapling.responder | regex_replace(':[0-9]+$', '') }} \
   -noverify \
   -respout {{ item.ssl.cert}}.ocsp \
   > /dev/null
